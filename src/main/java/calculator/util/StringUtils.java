@@ -17,4 +17,16 @@ public class StringUtils {
         }
         return true;
     }
+
+    // 문자를 Integer로 변환
+    public static Integer convertToInteger(String str){
+        if (str == null || str.isEmpty()) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("The number is too large or malformed");
+        }
+    }
 }

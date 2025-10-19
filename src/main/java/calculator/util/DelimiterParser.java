@@ -1,5 +1,6 @@
 package calculator.util;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -29,5 +30,31 @@ public class DelimiterParser {
             return matcher.group(1);
         }
         return null;
+    }
+
+    // 추출된 문자들을 split에 사용할 정규 표현식 [a|b|c] 형태로 변환
+    public static String createSeparatorRegex(
+            List<String> defaultSeparators,
+            String rawSeparator){
+
+        StringBuilder regexBuilder = new StringBuilder("[");
+
+        for (String defaultSeparator: defaultSeparators){
+            regexBuilder.append(Pattern.quote(defaultSeparator)).append("|");
+        }
+
+        if (rawSeparator != null) {
+            for (char c : rawSeparator.toCharArray()) {
+                regexBuilder.append(Pattern.quote(String.valueOf(c))).append("|");
+            }
+        }
+
+        // 마지막 '|' 제거 및 ']' 닫기
+        if (regexBuilder.length() > 1) {
+            regexBuilder.setLength(regexBuilder.length() - 1);
+        }
+        regexBuilder.append("]");
+
+        return regexBuilder.toString();
     }
 }

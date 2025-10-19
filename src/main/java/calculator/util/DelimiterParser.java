@@ -1,5 +1,6 @@
 package calculator.util;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -19,5 +20,14 @@ public class DelimiterParser {
         }
 
         return pattern;
+    }
+    // 대상에서 패턴 찾기
+    public static String getRawSeparator(Pattern pattern, String input){
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.find()){
+            return matcher.group(1);
+        }
+        return null;
     }
 }
